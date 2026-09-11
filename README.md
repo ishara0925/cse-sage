@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/cse-sage-logo.png" alt="CSE-Sage — Ask · Analyze · Invest" width="360">
+</p>
+
 # CSE Sage
 
 AI-powered strategy backtesting and comprehensive stock analysis for the Colombo Stock
@@ -36,20 +40,6 @@ See the full architecture writeup: `the-tradingview-has-a-effervescent-charm.md`
    announcements, technicals) plus a chart-generation tool, streaming its reasoning and
    tool calls live, then produces a downloadable two-page PDF report.
 
-## Required upstream changes (in the `ceyloncharts-mcp` repo, not here)
-
-1. **Done, not yet deployed**: `workers/mcp-server/src/index.ts` had zero CORS handling
-   at all (no `OPTIONS` support, no `Access-Control-Allow-Origin`), so no browser-based
-   client — this site or any other — could call it directly. Added an open (`origin: '*'`)
-   CORS layer matching `oauth-server`'s existing policy. This is a generic fix (any
-   browser MCP client benefits), not a per-site allowlist entry. **Needs `wrangler deploy`
-   before OAuth login will actually work end-to-end.**
-2. **Not done, deferred**: there's no `get_shareholdings`-style MCP tool yet (the
-   underlying data exists in D1 under `financial_statements` / `statement_type=
-   'shareholdings'`, extracted by `cse-data-admin`, just not exposed as a tool). Until
-   that's added, the shareholding-changes tool in the Analyze feature returns "not
-   available yet" without making a network call.
-
 ## Development
 
 ```bash
@@ -59,20 +49,14 @@ npm run dev
 
 Open the app, go to **Settings**, connect your ceyloncharts account and paste your
 Anthropic key, then try **System Check** first — it validates that Pyodide can load
-`pandas` + `backtesting.py` + `matplotlib` in your browser (the biggest open technical
-risk in this project) before you rely on the other two tabs. Note: the ceyloncharts
-connection won't fully succeed until the CORS fix above is deployed.
+`pandas` + `backtesting.py` + `matplotlib` in your browser before you rely on the other
+two tabs.
 
 ```bash
 npm run build    # production build to dist/
 ```
 
-## Status / open items
-
-- Live at https://ishara0925.github.io/cse-sage/, auto-deployed on every push to `main`.
-- Anthropic's direct-browser-access header/CORS behavior should be reconfirmed against
-  current docs before relying on it in production.
-- MVP backtesting is single-symbol only (rate-limit reasons — see the plan).
+Live at https://ishara0925.github.io/cse-sage/, auto-deployed on every push to `main`.
 
 ## License
 
