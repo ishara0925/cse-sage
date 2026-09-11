@@ -69,7 +69,13 @@ npm run build    # production build to dist/
 
 ## Status / open items
 
-- Not yet pushed to GitHub / deployed — see the plan doc for the phased roadmap.
+- Live at https://ishara0925.github.io/cse-sage/, auto-deployed on every push to `main`.
 - Anthropic's direct-browser-access header/CORS behavior should be reconfirmed against
   current docs before relying on it in production.
 - MVP backtesting is single-symbol only (rate-limit reasons — see the plan).
+
+## License
+
+MIT — see [LICENSE](LICENSE). Not officially affiliated with CeylonCharts unless
+deployed at the URL above; this is a third-party client of the public
+`ceyloncharts-mcp` API.
